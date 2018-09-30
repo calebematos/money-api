@@ -9,7 +9,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecurityExpressionHandler;
-import org.springframework.web.cors.CorsConfiguration;
 
 @Profile("oauth-security")
 @Configuration
@@ -17,17 +16,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		CorsConfiguration cors = new CorsConfiguration();
-		cors.addAllowedOrigin("");
-		
 		http.authorizeRequests()
 				.antMatchers("/categorias").permitAll()
 				.anyRequest().authenticated()
 			.and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)			
 			.and()			
-				.csrf().disable();
-			
+				.csrf().disable();			
 	}
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
